@@ -24,13 +24,20 @@ if [ ! -f "artisan" ]; then
     mkdir -p tempdown && cd tempdown && git clone https://github.com/TheFonix/Pterodactyl-Themes.git .
     cp -r MasterThemes/BlueBrick/public ..
     cp -r MasterThemes/BlueBrick/resources ..
-
+    
     echo "Files have been copied over!"
     sleep 2
 
     echo "Removing the temp folders created in the copy process"
-
     cd .. && rm -rf tempdown
+
+    echo "Let me just clean up those permissions"
+    chmod -R 755 storage/* bootstrap/cache/
+    chown -R www-data:www-data *
+
+    echo "Clearning the Artisan Views & Cache"
+    php artisan view:clear
+    php artisan config:cache
 
     echo "Complete! Have a good day and dont forget to refresh your browser cache! (CTRL + F5)"
     echo "-Will"

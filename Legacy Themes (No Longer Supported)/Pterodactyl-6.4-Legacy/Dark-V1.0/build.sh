@@ -21,9 +21,16 @@ if [ ! -f "artisan" ]; then
     echo "Files have been copied over!"
     sleep 2
 
-    echo "Removing the temp folders created in the copy process"
+    
 
-    cd .. && rm -rf tempdown
+    
+
+
+cd .. && rm -rf tempdown
+
+echo "Let me just clean up those permissions"
+chmod -R 755 storage/* bootstrap/cache/
+chown -R www-data:www-data * 
 
     echo "Complete! Have a good day and dont forget to refresh your browser cache!"
     echo "Fonix"

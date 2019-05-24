@@ -29,8 +29,15 @@ if [ ! -f "artisan" ]; then
     sleep 2
 
     echo "Removing the temp folders created in the copy process"
-
     cd .. && rm -rf tempdown
+
+    echo "Let me just clean up those permissions"
+    chmod -R 755 storage/* bootstrap/cache/
+    chown -R www-data:www-data *
+
+    echo "Clearning the Artisan Views & Cache"
+    php artisan view:clear
+    php artisan config:cache
 
     echo "Complete! Have a good day and dont forget to refresh your browser cache! (CTRL + F5)"
     echo "-Will"
